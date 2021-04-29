@@ -10,6 +10,10 @@ class Product {
         return $this->id;
     }
 
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function getName() {
         return $this->name;
     }
@@ -31,6 +35,6 @@ class Product {
     }
 
     public function setPrice($price) {
-        $this->preco = $preco;
+        $this->price = $price;
     }
 }
