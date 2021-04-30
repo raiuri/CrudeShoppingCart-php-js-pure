@@ -72,7 +72,7 @@
         </nav>
     </div>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="items-list">
         <?php  
             foreach($product->read() as $product):
         ?>
@@ -85,7 +85,7 @@
                         <strong>código: <?php echo $product["code"] ?></strong>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-success" onclick="incrementQtdProducts()">Comprar</button>
+                        <button class="btn btn-success add-to-cart" onclick="incrementQtdProducts()">Comprar</button>
                     </div>
                 </div>
             </div>
