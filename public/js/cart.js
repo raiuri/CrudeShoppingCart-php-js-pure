@@ -1,13 +1,15 @@
 // selectors
 const itemsList = document.getElementById('items-list');
 const appendCartList = document.querySelector('#cart-list tbody');
+const clearCart = document.getElementById('clear-cart');
 
 function eventListeners() {
 
     itemsList.addEventListener('click', addToCart);
+    clearCart.addEventListener('click', clearCartItems);
 }
 
-// functions
+// add items in cart
 function addToCart(e) {
     e.preventDefault();
     
@@ -28,21 +30,52 @@ function readItemsData(item) {
     insertInCart(items);
 };
 
-function insertInCart(items) {
+function insertInCart(item) {
     const row = document.createElement('tr');
     row.innerHTML = `
         <td>
-            <img src="${items.image}" width=100>
+            <img src="${item.image}" width=100>
         </td>
-        <td>${items.name}</td>
-        <td>${items.preco}</td>
-        <td>${items.code}</td>
+        <td>${item.name}</td>
+        <td>${item.preco}</td>
+        <td>${item.code}</td>
         <td>
-            <a href="#" class="borrar-curso" data-id="${items.id}">X</a>
+            <a href="#" class="borrar-curso" data-id="${item.id}">X</a>
         </td>
     `;
 
     appendCartList.appendChild(row);
+    saveToLocalStorage(item);
+}
+
+function saveToLocalStorage(item) {
+    let items;
+    items = getFromLocalStorage();
+    items.push(item);
+
+    localStorage.setItem('items', JSON.stringify(items));
+
+
+}
+
+function getFromLocalStorage() {
+    let itemsLS;
+
+    if (localStorage.getItem('items') === null) {
+        itemsLS = [];
+    } else {
+        itemsLS = JSON.parse( localStorage.getItem('items') );
+        console.log(itemsLS, 'e cu');
+    }
+    return itemsLS;
+}
+
+// clear cart
+function clearCartItems(e) {
+    e.preventDefault();
+    while(appendCartList.firstChild) {
+        appendCartList.removeChild(appendCartList.firstChild);
+    }
 }
 
 function incrementQtdProducts() {
