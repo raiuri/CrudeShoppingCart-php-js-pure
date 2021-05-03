@@ -1,4 +1,5 @@
 // selectors
+const cart = document.getElementById('cart');
 const itemsList = document.getElementById('items-list');
 const appendCartList = document.querySelector('#cart-list tbody');
 const clearCart = document.getElementById('clear-cart');
@@ -7,6 +8,8 @@ function eventListeners() {
 
     itemsList.addEventListener('click', addToCart);
     clearCart.addEventListener('click', clearCartItems);
+    cart.addEventListener('click', removeItem);
+    document.addEventListener('DOMContentLoaded', insertInCartFromLS);
 }
 
 // add items in cart
@@ -65,17 +68,53 @@ function getFromLocalStorage() {
         itemsLS = [];
     } else {
         itemsLS = JSON.parse( localStorage.getItem('items') );
-        console.log(itemsLS, 'e cu');
     }
     return itemsLS;
 }
 
+function insertInCartFromLS() {
+    let itemLS = getFromLocalStorage();
+    itemLS.map(data => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+            <img src="${data.image}" width=100>
+            </td>
+            <td>${data.name}</td>
+            <td>${data.preco}</td>
+            <td>${data.code}</td>
+            <td>
+                <a href="#" class="borrar-curso" data-id="${data.id}">X</a>
+            </td>
+        `;
+        appendCartList.appendChild(row);
+    });
+}
+
+function removeItem(e) {
+    e.preventDefault();
+    let item, itemId;
+
+
+    if(e.target.classList.contains('')) {}
+}
+
+function removeItemFromLS(item) {
+    let itemLS = getFromLocalStorage();
+   
+    filteredItem = itemLS.filter(data => data.id !== item.id);
+
+    localStorage.setItem('items', JSON.stringify(filteredItem));
+}
 // clear cart
 function clearCartItems(e) {
     e.preventDefault();
     while(appendCartList.firstChild) {
         appendCartList.removeChild(appendCartList.firstChild);
     }
+
+    localStorage.clear();
+    return false;
 }
 
 function incrementQtdProducts() {
