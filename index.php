@@ -49,7 +49,7 @@
                     <input class="form-control me-2" type="search" placeholder="buscar" aria-label="Search">
                     <ul>                    
                         <li class="cart-menu">
-                            <spam class="btn btn-success">icone <span id="qtd-products">0</span></spam>
+                            <div class="btn btn-success" id="qtd-products">icone <span>0</span></div>
                             <div id="cart">
                                 <table class="table" id="cart-list">
                                     <thead>

@@ -3,13 +3,15 @@ const cart = document.getElementById('cart');
 const itemsList = document.getElementById('items-list');
 const appendCartList = document.querySelector('#cart-list tbody');
 const clearCart = document.getElementById('clear-cart');
+const qtdProducts = document.getElementById('qtd-products');
+const incrementCount = document.getElementById('increment-count');
 
 function eventListeners() {
-
     itemsList.addEventListener('click', addToCart);
     clearCart.addEventListener('click', clearCartItems);
     cart.addEventListener('click', removeItem);
     document.addEventListener('DOMContentLoaded', insertInCartFromLS);
+    document.addEventListener('DOMContentLoaded', incrementQtdProductsLS);
 }
 
 // add items in cart
@@ -114,17 +116,28 @@ function clearCartItems(e) {
     }
 
     localStorage.clear();
+    const resetCartQtd = document.getElementById('qtd-products').children[0];
+    resetCartQtd.innerText = 0;
+    
     return false;
 }
 
+function incrementQtdProductsLS() {
+    const items = document.getElementById('qtd-products').children[0];
+    const itemsLS = getFromLocalStorage();
+
+    items.innerText = itemsLS.length;
+}
+
 function incrementQtdProducts() {
+    const items = document.getElementById('qtd-products').children[0];
+    const itemsLS = getFromLocalStorage();
 
-    var qtd_products = document.getElementById('qtd-products').innerText;
-
-    var intValue = parseInt(qtd_products);
-    var intSum = intValue + 1;
-
-    document.getElementById('qtd-products').innerText = intSum;
+    if(!itemsLS[0]) {
+        items.innerText = 1;
+    } else {
+        items.innerText = itemsLS.length + 1;
+    }
 }
 
 // exec
