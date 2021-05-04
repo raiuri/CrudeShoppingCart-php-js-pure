@@ -42,10 +42,10 @@ function insertInCart(item) {
             <img src="${item.image}" width=100>
         </td>
         <td>${item.name}</td>
-        <td>${item.preco}</td>
+        <td>${item.price}</td>
         <td>${item.code}</td>
         <td>
-            <a href="#" class="borrar-curso" data-id="${item.id}">X</a>
+            <a href="#" class="remove-item btn btn-danger" data-id="${item.code}">X</a>
         </td>
     `;
 
@@ -83,10 +83,10 @@ function insertInCartFromLS() {
             <img src="${data.image}" width=100>
             </td>
             <td>${data.name}</td>
-            <td>${data.preco}</td>
+            <td>${data.price}</td>
             <td>${data.code}</td>
             <td>
-                <a href="#" class="borrar-curso" data-id="${data.id}">X</a>
+                <a href="#" class="remove-item btn btn-danger" data-id="${data.code}">X</a>
             </td>
         `;
         appendCartList.appendChild(row);
@@ -97,8 +97,20 @@ function removeItem(e) {
     e.preventDefault();
     let item, itemId;
 
+    if(e.target.classList.contains('remove-item')) {
+        e.target.parentElement.parentElement.remove();
+        item = e.target.parentElement.parentElement;
+        itemId = item.querySelector('a').getAttribute('data-id');
+    }
+    
+    const items = document.getElementById('qtd-products').children[0];
+    
+    if( items.innerText > 0) {
+        items.innerText -= 1;
+    } 
 
-    if(e.target.classList.contains('')) {}
+    removeItemFromLS(itemId);
+
 }
 
 function removeItemFromLS(item) {
@@ -118,7 +130,7 @@ function clearCartItems(e) {
     localStorage.clear();
     const resetCartQtd = document.getElementById('qtd-products').children[0];
     resetCartQtd.innerText = 0;
-    
+
     return false;
 }
 
