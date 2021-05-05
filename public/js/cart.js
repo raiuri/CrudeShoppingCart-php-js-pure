@@ -157,9 +157,7 @@ function totalCart() {
     const total = sum.reduce((acum, obj) => {
         return acum + parseFloat(obj.price);
     }, 0);
-
     
-    console.log(total, 'cu');
     document.getElementById('total-cart').innerText = total;
 }
 
