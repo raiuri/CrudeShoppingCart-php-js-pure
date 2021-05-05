@@ -28,10 +28,10 @@
                             <a class="nav-link active" aria-current="page" href="#">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="create.php">Cadastrar</a>
+                            <a class="nav-link" href="createProduct.php">Cadastrar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Lista de prodtos (Editar)</a>
+                            <a class="nav-link" href="listProducts.php">Lista de produtos (Editar)</a>
                         </li>
                     </ul>
                 <form class="d-flex" action="/checkout.php">
@@ -40,6 +40,7 @@
                         <li class="cart-menu">
                             <div class="btn btn-success" id="qtd-products">icone <span>0</span></div>
                             <div id="cart">
+                                <button class="btn btn-info">Total: R$<span id="total-cart"></span></button>
                                 <table class="table" id="cart-list">
                                     <thead>
                                         <tr>
@@ -62,25 +63,33 @@
     </div>
     <div class="container-fluid">
         <div class="row" id="items-list">
-        <?php  
-            foreach($product->read() as $product):
-        ?>
-            <div class="col-md-3">
-                <div class="container card" style="width: 19rem;">
-                    <img src="<?php echo $product["image"] ?>" height="250" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $product["name"] ?></h5>
-                        <p class="card-text">R$ <?php echo $product["price"] ?></p>
-                        <strong>código: <?php echo $product["code"] ?></strong>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-success add-to-cart" onclick="incrementQtdProducts()">Comprar</button>
+        <?php 
+            $length = count($product->read());
+            if($length > 0) { ?>
+            <!-- -->
+            <?php  
+                foreach($product->read() as $product):
+            ?>
+                <div class="col-md-3">
+                    <div class="container card" style="width: 19rem;">
+                        <img src="<?php echo $product["image"] ?>" height="250" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $product["name"] ?></h5>
+                            <p class="card-text"><?php echo $product["price"] ?></p>
+                            <strong>código: <?php echo $product["code"] ?></strong>
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-success add-to-cart" onclick="incrementQtdProducts()">Comprar</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php 
-            endforeach; 
-        ?>
+            <?php 
+                endforeach; 
+            ?>
+            <!-- -->
+        <?php } else {?>
+            <?php echo "Não há produtos cadastrados" ?>
+        <?php };?>
         </div>
     </div>
     <script src="public/js/cart.js"></script>

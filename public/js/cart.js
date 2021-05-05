@@ -12,6 +12,7 @@ function eventListeners() {
     cart.addEventListener('click', removeItem);
     document.addEventListener('DOMContentLoaded', insertInCartFromLS);
     document.addEventListener('DOMContentLoaded', incrementQtdProductsLS);
+    document.addEventListener('DOMContentLoaded', totalCart);
 }
 
 function addToCart(e) {
@@ -41,7 +42,7 @@ function insertInCart(item) {
             <img src="${item.image}" width=100>
         </td>
         <td>${item.name}</td>
-        <td>${item.price}</td>
+        <td>R$ ${item.price}</td>
         <td>${item.code}</td>
         <td>
             <a href="#" class="remove-item btn btn-danger" data-id="${item.code}">X</a>
@@ -149,6 +150,17 @@ function incrementQtdProducts() {
     } else {
         items.innerText = itemsLS.length + 1;
     }
+}
+
+function totalCart() {
+    const sum = getFromLocalStorage();
+    const total = sum.reduce((acum, obj) => {
+        return acum + parseFloat(obj.price);
+    }, 0);
+
+    
+    console.log(total, 'cu');
+    document.getElementById('total-cart').innerText = total;
 }
 
 // exec

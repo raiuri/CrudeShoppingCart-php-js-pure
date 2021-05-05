@@ -29,6 +29,20 @@ class ProductDao {
         endif;
     }
 
+    public function getProductById($p) {
+        $sql = 'SELECT * FROM products where id = ?';
+        $stmt = Connection::getConnection()->prepare($sql);
+        $stmt->bindValue(1, $p->getId());
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0): 
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        else:
+            return [];
+        endif;
+    }
+
     public function update(Product $p) {
         $sql = 'UPDATE products SET 
                 name = ?,
