@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Product {
 
-    private $id, $name, $code, $price;
+    private $id, $name, $code, $price, $image;
 
     public function getId() {
         return $this->id;
@@ -36,5 +36,13 @@ class Product {
 
     public function setPrice($price) {
         $this->price = $price;
+    }
+
+    public function getImage() {
+        return $this->image;
+    }
+
+    public function setImage($image) {
+        $this->image = $image;
     }
 }

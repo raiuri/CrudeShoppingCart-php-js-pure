@@ -14,7 +14,6 @@ function eventListeners() {
     document.addEventListener('DOMContentLoaded', incrementQtdProductsLS);
 }
 
-// add items in cart
 function addToCart(e) {
     e.preventDefault();
     

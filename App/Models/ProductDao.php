@@ -5,12 +5,13 @@ namespace App\Models;
 class ProductDao {
     
     public function create(Product $p) {
-        $sql = 'INSERT INTO products (name, code, price) VALUES (?,?,?)';
+        $sql = 'INSERT INTO products (name, code, price, image) VALUES (?,?,?,?)';
 
         $stmt = Connection::getConnection()->prepare($sql);
         $stmt->bindValue(1, $p->getName());
         $stmt->bindValue(2, $p->getCode());
         $stmt->bindValue(3, $p->getPrice());
+        $stmt->bindValue(4, $p->getImage());
         $stmt->execute();
     }
 
