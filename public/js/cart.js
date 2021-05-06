@@ -4,12 +4,13 @@ const itemsList = document.getElementById('items-list');
 const appendCartList = document.querySelector('#cart-list tbody');
 const clearCart = document.getElementById('clear-cart');
 const qtdProducts = document.getElementById('qtd-products');
-const incrementCount = document.getElementById('increment-count');
+const incrementCount = document.getElementById('add-to-cart');
 
 function eventListeners() {
     itemsList.addEventListener('click', addToCart);
     clearCart.addEventListener('click', clearCartItems);
     cart.addEventListener('click', removeItem);
+    incrementCount.addEventListener('click', incrementTotalCart);
     document.addEventListener('DOMContentLoaded', insertInCartFromLS);
     document.addEventListener('DOMContentLoaded', incrementQtdProductsLS);
     document.addEventListener('DOMContentLoaded', totalCart);
@@ -42,7 +43,7 @@ function insertInCart(item) {
             <img src="${item.image}" width=100>
         </td>
         <td>${item.name}</td>
-        <td>R$ ${item.price}</td>
+        <td>${item.price}</td>
         <td>${item.code}</td>
         <td>
             <a href="#" class="remove-item btn btn-danger" data-id="${item.code}">X</a>
@@ -110,6 +111,7 @@ function removeItem(e) {
     } 
 
     removeItemFromLS(itemId);
+    decrementTotalValue(e);
 
 }
 
@@ -127,6 +129,7 @@ function clearCartItems(e) {
         appendCartList.removeChild(appendCartList.firstChild);
     }
 
+    document.getElementById('total-cart').innerText = 0;
     localStorage.clear();
     const resetCartQtd = document.getElementById('qtd-products').children[0];
     resetCartQtd.innerText = 0;
@@ -159,6 +162,24 @@ function totalCart() {
     }, 0);
     
     document.getElementById('total-cart').innerText = total;
+}
+
+function incrementTotalCart(e) {
+    const clickedValue = parseFloat(e.target.parentElement.parentElement.querySelector('.card-body p').innerText);
+    
+    let currentTotal = parseFloat(document.getElementById('total-cart').innerText);
+
+    let sum = document.getElementById('total-cart').innerText = currentTotal + clickedValue;
+
+    console.log(sum);
+}
+
+function decrementTotalValue(e) {
+    const clickedValue = parseFloat(e.target.parentElement.parentElement.querySelector('td:nth-child(3)').innerText);
+
+    let currentTotal = parseFloat(document.getElementById('total-cart').innerText);
+
+    let sub = document.getElementById('total-cart').innerText = currentTotal - clickedValue;
 }
 
 // exec

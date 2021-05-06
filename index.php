@@ -12,6 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/css/bootstrap.css">
     <link rel="stylesheet" href="public/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous"> 
+    <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <title>Products</title>
 </head>
 <body>
@@ -38,7 +41,7 @@
                     <input class="form-control me-2" type="search" placeholder="buscar" aria-label="Search">
                     <ul>                    
                         <li class="cart-menu">
-                            <div class="btn btn-success" id="qtd-products">icone <span>0</span></div>
+                            <div class="btn btn-success" id="qtd-products"><span>0</span><i class="fas fa-shopping-cart"></i></div>
                             <div id="cart">
                                 <button class="btn btn-info">Total: R$<span id="total-cart"></span></button>
                                 <table class="table" id="cart-list">
@@ -61,7 +64,7 @@
             </div>
         </nav>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id="add-to-cart">
         <div class="row" id="items-list">
         <?php 
             $length = count($product->read());
@@ -79,7 +82,7 @@
                             <strong>código: <?php echo $product["code"] ?></strong>
                         </div>
                         <div class="card-body">
-                            <button class="btn btn-success add-to-cart" onclick="incrementQtdProducts()">Comprar</button>
+                            <button class="btn btn-success add-to-cart" onclick="incrementQtdProducts(), incrementTotalCart()">Comprar</button>
                         </div>
                     </div>
                 </div>
