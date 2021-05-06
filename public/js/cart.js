@@ -170,8 +170,6 @@ function incrementTotalCart(e) {
     let currentTotal = parseFloat(document.getElementById('total-cart').innerText);
 
     let sum = document.getElementById('total-cart').innerText = currentTotal + clickedValue;
-
-    console.log(sum);
 }
 
 function decrementTotalValue(e) {
